@@ -1,0 +1,22 @@
+import instaloader
+
+# Create an instance of the Instaloader class
+L = instaloader.Instaloader()
+
+# Login to Instagram (optional, but may be required for private profiles)
+L.load_session_from_file('your_username')
+# Replace 'your_username' with your actual Instagram username
+
+# Get a profile object for the user whose stories/highlights you want to download
+profile = instaloader.Profile.from_username(L.context, "target_username")
+# Replace 'target_username' with the actual Instagram username of the target user
+
+# Download all the stories from the user's current story
+stories = profile.get_stories()
+for story in stories:
+    L.download_story(story, target='stories')
+
+# Download all the highlights from the user's profile
+highlights = profile.get_highlights()
+for highlight in highlights:
+    L.download_story(highlight, target='highlights')
